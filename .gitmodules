@@ -10,3 +10,6 @@
 [submodule "assets/modules/RedirectMap/public/fileapi"]
 	path = assets/modules/RedirectMap/public/fileapi
 	url = https://github.com/RubaXa/jquery.fileapi.git
+[submodule "assets/lib/MODxAPI"]
+	path = assets/lib/MODxAPI
+	url = https://github.com/AgelxNash/resourse.git

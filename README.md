@@ -4,6 +4,7 @@ RedirectMap2
 
 Зависимости
 ============
+* [Библиотека MODxAPI](https://github.com/AgelxNash/resourse)
 * [Сниппет DocLister](https://github.com/AgelxNash/DocLister)
 * [Плагин getPageID](https://gist.github.com/AgelxNash/9268660)
 * [jQuery виджет jeditable](https://github.com/tuupola/jquery_jeditable)
@@ -11,14 +12,14 @@ RedirectMap2
 
 Скачивание проекта
 ============
-* **Вариант 1** с обновлением сниппета DocLister и плагина getPageID до последней актуальной версии:
+* **Вариант 1** с обновлением сниппета DocLister, плагина getPageID и библиотеки MODxAPI до последней актуальной версии:
 ```
 git clone https://github.com/AgelxNash/redirectMap2.git
 cd redirectMap2
 git submodule update --init --recursive
 ```
 После чего содержимое папки redirectMap2 заливается в корень сайта с перезаписью всех существующих файлов
-* **Вариант 2** скачивание модуля архивом из раздела релизов со всеми зависимостями (*на сайте могут быть установлены более актуальные версии сниппета DocLister и плагина getPageID*).
+* **Вариант 2** скачивание модуля архивом из раздела релизов со всеми зависимостями (*на сайте могут быть установлены более актуальные версии сниппета DocLister, плагина getPageID и библиотеки MODxAPI*).
 
 Установка
 ============
