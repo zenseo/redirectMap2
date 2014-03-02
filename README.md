@@ -70,7 +70,7 @@ include MODX_BASE_PATH."assets/modules/RedirectMap/init.php";
 ```
 &display=Правил на странице;input;20 &requestName=Имя GET переменной;input;getPageId
 ```
-
+* Проверяется, чтобы значение параметра requestName из строки конфигурации совпадала в модуле, плагине и сниппете
 
 Вывод правил на страницу редактирования документа
 ============

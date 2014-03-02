@@ -1,10 +1,4 @@
 <?php namespace RedirectMap;
-/**
- * Created by PhpStorm.
- * User: Agel_Nash
- * Date: 08.02.14
- * Time: 20:11
- */
 
 class Debug{
     /**

@@ -1,4 +1,5 @@
 <?php namespace RedirectMap;
+
 class Action{
     protected static $modx = null;
     public static $TPL = null;

@@ -1,5 +1,7 @@
 <?php namespace RedirectMap;
+
 include_once(dirname(dirname(dirname(dirname(__FILE__))))."/lib/MODxAPI/autoTable.abstract.php");
+
 class modRedirectMap extends \autoTable{
     protected $table = "redirect_map";
     protected $pkName = 'id';
