@@ -2,8 +2,6 @@
 if (IN_MANAGER_MODE != 'true') {
     die('<h1>ERROR:</h1><p>Please use the MODx Content Manager instead of accessing this file directly.</p>');
 }
-include_once(dirname(__FILE__).'src/modRedirectMap.class.php');
-
 $docID = !empty($_REQUEST['id']) ? (int)$_REQUEST['id'] : 0;
 
 $q = $modx->db->query("SELECT * FROM ".$modx->getFullTableName("site_modules")." WHERE `modulecode` LIKE '%/RedirectMap/init.php%'");
