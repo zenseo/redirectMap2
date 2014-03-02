@@ -185,11 +185,14 @@ class Action{
                          * Создавать новую запись
                          */
                         $modRM = new modRedirectMap($modx);
-                        $isNew = $modRM->create(array(
+                        $insert = array(
                             'uri' => $line,
                             'active' => 0,
                             'page' => 0
-                        ))->save();
+                        );
+                        $insert = Action::checkPageID($insert['uri'], $insert['page']);
+                        $isNew = $modRM->create($insert)->save();
+
                         $uri = $modRM->get('uri');
 
                         $q = $modx->db->select('id', $modx->getFullTableName("redirect_map"), "`uri` = '".$modx->db->escape($uri)."'");
@@ -217,26 +220,17 @@ class Action{
                              * Создавать новую запись
                              */
                             $modRM = new modRedirectMap($modx);
-                            $uri = Template::getParam(0, $data);
-                            $uri = iconv('windows-1251', 'UTF-8//IGNORE', $uri);
                             $insert = array(
-                                'uri' => $uri,
+                                'uri' => iconv('windows-1251', 'UTF-8//IGNORE', Template::getParam(0, $data)),
                                 'page' => Template::getParam(1, $data, '0'),
+                                'active' => 1
                             );
                             $insert = Action::checkPageID($insert['uri'], $insert['page']);
-
                             $isNew = $modRM->create($insert)->save();
                             $uri = $modRM->get('uri');
                             $q = $modx->db->select('id', $modx->getFullTableName("redirect_map"), "`uri` = '".$modx->db->escape($uri)."'");
-                            if($modx->db->getRecordCount($q)==1){ //Если уже запись есть в базе
-                                if(false === $isNew){ //Если не удалось добавить новую запись
-                                    unset($insert['uri']);
-                                    $flag = $modRM->edit($modx->db->getValue($q))->fromArray($insert)->save();
-                                }else{
-                                    $flag = true;
-                                }
-                            }
 
+                            return (false !== $isNew && !empty($uri) && $modx->db->getRecordCount($q)==1);
                         }
                     }
                     return $flag;
