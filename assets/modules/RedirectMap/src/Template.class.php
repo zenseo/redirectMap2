@@ -104,6 +104,11 @@ class Template{
         $method = $this->getParam('method', $_GET, '');
         $addWhere = array();
         switch($method){
+            case 'doc':{
+                $docID = (int)$this->getParam('doc', $_GET, 0);
+                $addWhere[] = '`page`='.$docID;
+                break;
+            }
             case 'active':{
                 $addWhere[] = '`active`=1';
                 break;
@@ -114,7 +119,17 @@ class Template{
             }
         }
 
+        /**
+         * По какому полю вести сортировку
+         */
+        $key = $this->getParam('by', $_GET, 'key');
+        $modSeo = new modRedirectMap($this->_modx);
+        if( ! $modSeo->issetField($key)){
+            $key = 'uri';
+        }
+
         $data = array(
+            'orderBy'=>'`'.$key.'` '.$this->getParam('order', $_GET, 'ASC'),
             'addWhereList' => implode(" AND ", $addWhere)
         );
 
