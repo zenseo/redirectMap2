@@ -31,7 +31,7 @@
 <div class="section">
     <div class="sectionHeader">Форма добавления нового правила</div>
     <div class="sectionBody" style="padding:10px 20px;">
-        <form action="<?=$tplClass->makeUrl('addUri');?>" method="POST">
+        <form action="<?=$tplClass->makeUrl('addUri', array('order' => $tplClass->getParam('order', $_GET, 'DESC'), 'by'=>$tplClass->getParam('by', $_GET, 'page'), 'method' => $tplClass->getParam('method', $_GET, 'list'), 'doc' => $tplClass->getParam('doc', $_GET, 0)));?>" method="POST">
             <table>
                 <tr>
                     <td style="width:100px">

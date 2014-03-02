@@ -122,7 +122,7 @@ class Template{
         /**
          * По какому полю вести сортировку
          */
-        $key = $this->getParam('by', $_GET, 'key');
+        $key = $this->getParam('by', $_GET, 'page');
         $modSeo = new modRedirectMap($this->_modx);
         if( ! $modSeo->issetField($key)){
             $key = 'uri';
@@ -151,7 +151,6 @@ class Template{
                 'pageInfoTpl' => '@CODE: '.$this->showBody('table/pageInfo'),
                 'pageInfoEmptyTpl' => '@CODE: '.$this->showBody('table/pageInfoEmpty'),
                 'debug' => 0,
-                'test' => 'module',
                 'noneTPL' => '@CODE: Нет данных',
                 'noneWrapOuter' => 0,
                 'paginate' => 'pages',
