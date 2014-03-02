@@ -1,7 +1,7 @@
 RedirectMap2
 ============
 Вторая версия известного плагина [RedirectMap под MODX Evolution](http://community.modx-cms.ru/blog/addons/1130.html)
-<a href="http://blog.agel-nash.ru/images/addon/redirectMap2-grid.png"><img src="http://blog.agel-nash.ru/images/addon/redirectMap2-grid.png"></a>
+<a href="http://blog.agel-nash.ru/images/addon/redirectMap2-grid.png"><img src="http://blog.agel-nash.ru/images/addon/redirectMap2-grid.png?v=1"></a>
 * Быстрое отключение правил перенаправления
 * Выборка правил перенаправления по целевой странице и активности
 * Сортировка по любому полю и выборка правл с использованием Ajax
@@ -27,12 +27,14 @@ RedirectMap2
 Вывод правил на страницу редактирования документа
 ============
 При желании можно вывести список правил на страницу редактирования документа:
-<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv1.png">
-<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv2.png">
-<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv3.png">
+
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv1.png?v=1">
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv2.png?v=1">
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv3.png?v=1">
 
 Если же запуск модуля не доступен для менеджера, то кнопка отображаться не будет (*хотя список правил будет по прежнему выведен*):
-<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv4.png">
+
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv4.png?v=1">
 
 Автор
 ============
