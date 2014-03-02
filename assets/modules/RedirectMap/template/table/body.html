@@ -1,0 +1,29 @@
+<tr>
+    <td class="[+class+]" style="text-align:left">
+        <img src="media/style/<?=$manager_theme;?>/images/icons/page_white_magnify.png">
+        [+doc_pagetitle+]
+        <br />
+        <span class="click" id="page_[+id+]">
+            <small><em><strong>ID</strong>: [+page+] &middot; <strong>Parent</strong>: [+doc_parent+]</em></small>
+        </span>
+    </td>
+    <td class="[+class+]" style="text-align:left">
+        <div class="uri_edit">
+            <div>
+                <a href="[+uri+]" target="_blank"><img src="media/style/<?=$manager_theme;?>/images/icons/globe.gif"></a>
+            </div>
+            <span class="click" id="uri_[+id+]">
+                [+uri+]
+            </span>
+        </div>
+    </td>
+    <td class="[+class+]">
+        <a class="is_active" href="<?=$tplClass->makeUrl('isactive');?>&docId=[+id+]" >
+            <img src="media/style/<?=$manager_theme;?>/images/icons/[+active+].png">
+        </a>
+
+        <a class="fulldel_action" href="<?=$tplClass->makeUrl('fullDelete');?>&docId=[+id+]" >
+            <img src="media/style/<?=$manager_theme;?>/images/icons/delete.png">
+        </a>
+    </td>
+</tr>

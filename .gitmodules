@@ -1,0 +1,12 @@
+[submodule "assets/plugins/getPageID"]
+	path = assets/plugins/getPageID
+	url = https://gist.github.com/9268660.git
+[submodule "assets/snippets/DocLister"]
+	path = assets/snippets/DocLister
+	url = https://github.com/AgelxNash/DocLister.git
+[submodule "assets/modules/RedirectMap/public/jeditable"]
+	path = assets/modules/RedirectMap/public/jeditable
+	url = https://github.com/tuupola/jquery_jeditable.git
+[submodule "assets/modules/RedirectMap/public/fileapi"]
+	path = assets/modules/RedirectMap/public/fileapi
+	url = https://github.com/RubaXa/jquery.fileapi.git

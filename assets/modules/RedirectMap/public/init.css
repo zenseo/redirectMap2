@@ -1,0 +1,29 @@
+ol li{ margin-left:20px;}
+ul li{font-weight:bold;margin-top:20px;}
+ul li li{font-weight:normal;margin:5px 0px 5px 0px;}
+pre {font-size:13px; background:#eee;border:1px solid #aaa;}
+table td { vertical-align: top;}
+.paginate{
+    text-align:center;
+    margin-top:5px;
+}
+.grid a{
+    color:#000;
+}
+.grid td{
+    text-align: center;
+    vertical-align: middle;
+}
+.grid td .editclass form{
+    text-align: center !important;
+}
+span .editclass input{
+    padding:3px;
+    display:block;
+    width:300px;
+    border:1px solid #000;
+    color:#000;
+}
+.uri_edit div{
+    float:left;
+}
