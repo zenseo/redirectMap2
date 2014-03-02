@@ -1,7 +1,7 @@
 RedirectMap2
 ============
 Вторая версия известного плагина [RedirectMap под MODX Evolution](http://community.modx-cms.ru/blog/addons/1130.html)
-<a href="http://take.ms/LQgjX"><img src="https://monosnap.com/image/34bHO3aPnVEgWslmqshhwhUGoh3QD6.png"></a>
+<a href="http://blog.agel-nash.ru/images/addon/redirectMap2-grid.png"><img src="http://blog.agel-nash.ru/images/addon/redirectMap2-grid.png"></a>
 * Быстрое отключение правил перенаправления
 * Выборка правил перенаправления по целевой странице и активности
 * Сортировка по любому полю и выборка правл с использованием Ajax
@@ -20,69 +20,43 @@ RedirectMap2
 * [jQuery виджет jeditable](https://github.com/tuupola/jquery_jeditable)
 * [jQuery виджет FileAPI](https://github.com/RubaXa/jquery.fileapi)
 
-Скачивание проекта
+Документация
 ============
-* **Вариант 1** с обновлением сниппета DocLister, плагина getPageID и библиотеки MODxAPI до последней актуальной версии:
-```
-git clone https://github.com/AgelxNash/redirectMap2.git
-cd redirectMap2
-git submodule update --init --recursive
-```
-После чего содержимое папки redirectMap2 заливается в корень сайта с перезаписью всех существующих файлов
-* **Вариант 2** скачивание модуля архивом из раздела релизов со всеми зависимостями (*на сайте могут быть установлены более актуальные версии сниппета DocLister, плагина getPageID и библиотеки MODxAPI*).
-
-Установка
-============
-* В базе данных создается таблица redirect_map. SQL запросы для создания таблицы находятся в файле db.sql
-* Создается плагин getPageID на событиях OnPageNotFound и OnWebPageInit с кодом
-```php
-include MODX_BASE_PATH."assets/plugins/getPageID/getPageID.plugin.php";
-```
-* К плагину getPageID добавляется строка конфигурации 
-```
-&requestName=Имя GET переменной;input;getPageId
-```
-* Создается сниппет getPageID с кодом 
-```php
-return require MODX_BASE_PATH.'assets/plugins/getPageID/getPageID.snippet.php';
-```
-* К сниппету getPageID добавляется стркоа конфигурации
-```
-&requestName=Имя GET переменной;input;getPageId
-```
-* Создается сниппет DocLister с кодом
-```php
-return require MODX_BASE_PATH.'assets/snippets/DocLister/snippet.DocLister.php';
-```
-* Создается плагин RedirectMap на событии OnPageNotFound с кодом
-```php
-include MODX_BASE_PATH."assets/modules/RedirectMap/plugin.RedirectMap.php";
-```
-* К плагину RedirectMap добавляется строка конфигурации
-```
-&saveParams=Сохранять GET параметры при редиректе;list;true,false;true &findWithParams=Искать правила с учетом GET параметров;list;true,false;false
-```
-* Создается модуль RedirectMap с кодом
-```php
-include MODX_BASE_PATH."assets/modules/RedirectMap/init.php";
-```
-* К модулю RedirectMap добавляется строка конфигурации:
-```
-&display=Правил на странице;input;20 &requestName=Имя GET переменной;input;getPageId
-```
-* Проверяется, чтобы значение параметра requestName из строки конфигурации совпадала в модуле, плагине и сниппете
+Описание процесса установки и возможностей модуля можно посмотреть у меня в блоге: [http://blog.agel-nash.ru/addon/redirectmap2.html](http://blog.agel-nash.ru/addon/redirectmap2.html)
 
 Вывод правил на страницу редактирования документа
 ============
-При желании можно вывести список правил на страницу редактирования документа. Для этого необходимо 
-создать ТВ параметр типа **Custom Input** с возможными значениями:
-```php
-@INCLUDE: assets/modules/RedirectMap/tv.RedirectMap.php
-```
-После чего во время редактирования документа будет выведен список правил и кнопка быстрого перехода в модуль для управления правилами редиректов этой страницы:
-<img src="https://monosnap.com/image/3tSiIW50ZHsj5BPZPbExotWKMkpEwJ.png">
-<img src="https://monosnap.com/image/vtpDbsyfICjHfFxU7hdMEEC6iXQ25b.png">
-<img src="https://monosnap.com/image/0OQ2d6XUHeypSZBMSF5737FUGGtEP8.png">
+При желании можно вывести список правил на страницу редактирования документа:
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv1.png">
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv2.png">
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv3.png">
 
 Если же запуск модуля не доступен для менеджера, то кнопка отображаться не будет (*хотя список правил будет по прежнему выведен*):
-<img src="https://monosnap.com/image/F015Vp2Zds8gSzDN0Kahx2QdHOl9qG.png">
+<img src="http://blog.agel-nash.ru/images/addon/redirectMap2-tv4.png">
+
+Автор
+============
+<table>
+  <tr>
+    <td><img src="http://www.gravatar.com/avatar/bf12d44182c98288015f65c9861903aa?s=220"></td>
+	<td valign="top">
+		<h4>Борисов Евгений
+			<br />
+			Agel Nash
+		</h4>
+		<a href="http://agel-nash.ru">http://agel-nash.ru</a><br />
+		<br />
+		<strong>ICQ</strong>: 8608196<br />
+		<strong>Skype</strong>: agel.nash<br />
+		<strong>Email</strong>: agel_nash@xaker.ru
+	</td>
+	<td valign="top">
+		<h4>Реквизиты для доната<br /><br /></h4>
+		<br />
+		<strong>WMZ</strong>: Z762708026453<br />
+		<strong>WMR</strong>: R203864025267<br />
+		<strong>ЯД</strong>: 41001299480137<br />
+		<strong>PayPal</strong>: agel_nash@xaker.ru<br />
+	</td>
+  </tr>
+</table>

@@ -121,6 +121,36 @@ class Action{
         });
     }
 
+    public static function fullRequest(){
+        $data = array();
+        $dataID = (int)Template::getParam('docId', $_GET);
+        if($dataID>0 && self::_checkObj($dataID)){
+            $oldValue = self::_getValue('full_request', $dataID);
+            self::$modx->db->update(array(
+                'full_request' => !$oldValue
+            ), self::$modx->getFullTableName(self::TABLE), "id = ".$dataID);
+            $data['log'] = $oldValue ? 'Для правила с ID '.$dataID.' отключен поиск с учетом GET параметров' : 'Для правила с ID '.$dataID.' активирован поиск без учета GET параметров';
+        }else{
+            $data['log'] = 'Не удалось определить обновляемое правило';
+        }
+        return $data;
+    }
+
+    public static function saveGet(){
+        $data = array();
+        $dataID = (int)Template::getParam('docId', $_GET);
+        if($dataID>0 && self::_checkObj($dataID)){
+            $oldValue = self::_getValue('save_get', $dataID);
+            self::$modx->db->update(array(
+                    'save_get' => !$oldValue
+                ), self::$modx->getFullTableName(self::TABLE), "id = ".$dataID);
+            $data['log'] = $oldValue ? 'Для правила с ID '.$dataID.' отключено сохранение GET параметров' : 'Для правила с ID '.$dataID.' активировано сохранение GET параметров';
+        }else{
+            $data['log'] = 'Не удалось определить обновляемое правило';
+        }
+        return $data;
+    }
+
     public static function isactive(){
         $data = array();
         $dataID = (int)Template::getParam('docId', $_GET);
@@ -212,7 +242,7 @@ class Action{
                     $line = trim(Template::getParam('line', $params));
                     if(!empty($line)){
                         $data = str_getcsv($line, ';');
-                        if(in_array(count($data), array(1,2), true)){
+                        if(count($data)==5){
                             /**
                              * @var \DocumentParser $modx
                              */
@@ -222,9 +252,11 @@ class Action{
                              */
                             $modRM = new modRedirectMap($modx);
                             $insert = array(
-                                'uri' => iconv('windows-1251', 'UTF-8//IGNORE', Template::getParam(0, $data)),
-                                'page' => Template::getParam(1, $data, '0'),
-                                'active' => 1
+                                'page' => Template::getParam(0, $data, '0'),
+                                'save_get' => Template::getParam(1, $data, '1'),
+                                'full_request' => Template::getParam(2, $data, '1'),
+                                'active' => Template::getParam(3, $data, '1'),
+                                'uri' => iconv('windows-1251', 'UTF-8//IGNORE', Template::getParam(4, $data)),
                             );
                             $insert = Action::checkPageID($insert['uri'], $insert['page']);
                             $isNew = $modRM->create($insert)->save();

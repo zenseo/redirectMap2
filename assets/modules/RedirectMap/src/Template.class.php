@@ -169,6 +169,9 @@ class Template{
                         }
                         $data['pageInfo'] = $_DocLister->parseChunk($_DocLister->getCFGDef($tpl), $data);
 
+                        $data['saveGet'] = $data['save_get'] ? 'save' : 'exclamation';
+                        $data['fullRequest'] = $data['full_request'] ? 'page_white_copy' : 'page_white_magnify';
+
                         $data['active'] = $data['active'] ? 'stop' : 'add';
                         $data['class'] = (isset($data['dl.iteration']) && $data['dl.iteration'] % 2) ? $_DocLister->getCFGDef('itemClass') : $_DocLister->getCFGDef('altItemClass');
 

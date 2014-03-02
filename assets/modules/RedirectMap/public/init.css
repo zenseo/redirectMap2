@@ -72,3 +72,17 @@ input.errorInput{
 .js-fileapi-wrapper{
     width:95%;
 }
+
+dl{
+    overflow: hidden;
+}
+dl dt{
+    float:left;
+    clear: both;
+    width:32px;
+    margin-bottom:5px;
+}
+dl dd{
+    margin-left:32px;
+    margin-bottom:5px;
+}

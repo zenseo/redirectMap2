@@ -13,11 +13,19 @@
         </div>
     </td>
     <td class="[+class+]">
-        <a class="is_active" href="<?=$tplClass->makeUrl('isactive');?>&docId=[+id+]" >
+        <a class="is_active" href="<?=$tplClass->makeUrl('saveGet');?>&docId=[+id+]" title="Сохранять GET параметры при редиректе">
+            <img src="media/style/<?=$manager_theme;?>/images/icons/[+saveGet+].png">
+        </a>
+
+        <a class="is_active" href="<?=$tplClass->makeUrl('fullRequest');?>&docId=[+id+]" title="Искать с учетом GET параметров">
+            <img src="media/style/<?=$manager_theme;?>/images/icons/[+fullRequest+].png">
+        </a>
+
+        <a class="is_active" href="<?=$tplClass->makeUrl('isactive');?>&docId=[+id+]" title="Активно ли правило">
             <img src="media/style/<?=$manager_theme;?>/images/icons/[+active+].png">
         </a>
 
-        <a class="fulldel_action" href="<?=$tplClass->makeUrl('fullDelete');?>&docId=[+id+]" >
+        <a class="fulldel_action" href="<?=$tplClass->makeUrl('fullDelete');?>&docId=[+id+]" title="Удалить">
             <img src="media/style/<?=$manager_theme;?>/images/icons/delete.png">
         </a>
     </td>

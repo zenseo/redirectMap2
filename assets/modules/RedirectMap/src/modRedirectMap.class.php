@@ -9,7 +9,9 @@ class modRedirectMap extends \autoTable{
     protected $default_field = array(
         'uri' => '',
         'page' => '',
-        'active' => 1
+        'active' => 1,
+        'save_get' => 0,
+        'full_request' => 0,
     );
 
     public function __construct(\DocumentParser $modx){
@@ -50,6 +52,8 @@ class modRedirectMap extends \autoTable{
                     }
                     break;
                 }
+                case 'full_request':
+                case 'save_get':
                 case 'active':{
                     $value = (int)((bool)$value);
                 }

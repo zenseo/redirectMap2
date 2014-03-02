@@ -8,7 +8,7 @@
  * @version 	2.0.1
  * @author      Agel_Nash <modx@agel-nash.ru>
  * @internal	@category       SEO
- * @internal	@properties     &display=Правил на странице;input;20 &requestName=Имя GET переменной;input;getPageId
+ * @internal	@properties     &display=Правил на странице;input;20
  * @internal    @code           include_once(MODX_BASE_PATH."assets/modules/RedirectMap/init.php");
  */
 
