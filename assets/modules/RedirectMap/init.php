@@ -5,7 +5,7 @@
  * Управление редиректами
  *
  * @category 	Module
- * @version 	0.01
+ * @version 	2.0.1
  * @author      Agel_Nash <modx@agel-nash.ru>
  * @internal	@category       SEO
  * @internal    @code           include_once(MODX_BASE_PATH."assets/modules/RedirectMap/init.php");

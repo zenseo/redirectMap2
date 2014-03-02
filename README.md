@@ -22,6 +22,7 @@ git submodule update --init --recursive
 
 Установка
 ============
+* В базе данных создается таблица redirect_map. SQL запросы для создания таблицы находятся в файле db.sql
 * Создается плагин getPageID на событиях OnPageNotFound и OnWebPageInit с кодом
 ```php
 include MODX_BASE_PATH."assets/plugins/getPageID/getPageID.plugin.php";

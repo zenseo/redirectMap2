@@ -1,0 +1,41 @@
+<div class="section">
+    <div class="sectionHeader">Загрузка файлов импорта</div>
+    <div class="sectionBody" style="padding:10px 20px;">
+        <p><strong>Соглашение о поддерживаемых форматах</strong></p>
+        <ol>
+            <li>Загружаемый файл не должен превышать 5 Мбайт</li>
+            <li>Загружаемый файл должен быть представлен в следующих форматах <a href="http://ru.wikipedia.org/wiki/CSV" target="_blank">CSV</a> или <a href="http://ru.wikipedia.org/wiki/Txt" target="_blank">TXT</a></li>
+            <li>Число строк в файле не должно превышать 10 000</li>
+        </ol>
+        <br />
+        <p><strong>Соглашение о станадартах содержимого в файлах формата TXT</strong></p>
+        <ol>
+            <li>На каждой строке должно быть указано одно URL с учетом ведущего слеша</li>
+        </ol>
+        <br />
+        <p><strong>Соглашение о станадартах содержимого в файлах формата CSV</strong></p>
+        <ol>
+            <li>В качестве разделителя используется символ <strong>;</strong> (<em>точка с запятой</em>)</li>
+            <li>Каждая строка должна быть представлена в виде набора из 1 или 2 параметров:
+                <ol>
+                    <li>строка из 1 параметра: <em>URL</em></li>
+                    <li>строка из 2 параметров: <em>URL;ID документа</em></li>
+                </ol>
+            </li>
+        </ol>
+        <hr />
+        <p><strong style="color:#cc0000;">Внимание!</strong> После выбора файла он будет автоматически загружен и обработан.</p>
+        <div class="js-fileapi-wrapper">
+            <div class="js-browse">
+                <input name="filedata" type="file" />
+            </div>
+            <div class="js-upload" style="display: none">
+                <div class="progress progress-success">
+                    <div class="js-progress bar"></div>
+                </div>
+                <span class="btn-txt">Загрузка (<span class="js-size"></span>)</span>
+            </div>
+        </div>
+    </div>
+</div>
+

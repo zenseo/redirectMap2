@@ -11,6 +11,8 @@
 </script>
 
 <script src="/assets/modules/RedirectMap/public/jeditable/jquery.jeditable.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/modules/RedirectMap/public/fileapi/FileAPI/FileAPI.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/modules/RedirectMap/public/fileapi/jquery.fileapi.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/modules/RedirectMap/public/init.js" type="text/javascript" charset="utf-8"></script>
 
 <div id="actions">
@@ -18,10 +20,13 @@
         <? if($tplClass->getParam('method', $_GET)!=''): ?>
             <?=$tplClass->showBody('action', array('id'=>'prevBtn', 'href'=>$tplClass->makeUrl('list'), 'title'=>'Вернуться', 'icon'=>"media/style/{$manager_theme}/images/icons/prev.gif")); ?>
         <? endif; ?>
+        <?=$tplClass->showBody('action', array('id'=>'showCsvUpload', 'href'=>$tplClass->makeUrl('showCsvUpload'), 'title'=>'Загрузить CSV', 'icon'=>"media/style/{$manager_theme}/images/icons/b092.gif")); ?>
         <?=$tplClass->showBody('action', array('id'=>'closeBtn', 'href'=>$modx->getManagerPath().'?a=106', 'title'=>'Закрыть', 'icon'=>"media/style/{$manager_theme}/images/icons/stop.png")); ?>
     </ul>
 </div>
 <h1><?=$tplClass->getParam('name', $content)?></h1>
+
+<div id="csvUpload"><?=$tplClass->showBody('uploadForm');?></div>
 
 <div class="section">
     <div class="sectionHeader">Форма добавления нового правила</div>

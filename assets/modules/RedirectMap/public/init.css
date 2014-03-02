@@ -27,3 +27,48 @@ span .editclass input{
 .uri_edit div{
     float:left;
 }
+
+input.errorInput{
+    border: 1px solid #960018 !important;
+    color: #960018 !important;
+}
+
+.js-fileapi-wrapper input{
+    width:150px;
+}
+
+.js-fileapi-wrapper .progress {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .5;
+    position: absolute;
+}
+.js-fileapi-wrapper .progress .bar {
+    width: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: #f60;
+    height: 5px;
+}
+.js-fileapi-wrapper .progress-small {
+    height: 5px;
+    padding: 1px;
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background-color: rgba(0,0,0,.5);
+}
+.js-fileapi-wrapper .progress-small .bar {
+    width: 0;
+    height: 100%;
+    position: static;
+    border-radius: 10px;
+    background-color: orange;
+}
+
+.js-fileapi-wrapper{
+    width:95%;
+}

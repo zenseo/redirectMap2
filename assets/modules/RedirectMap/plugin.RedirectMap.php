@@ -4,7 +4,7 @@
  * Плагин редиректов для MODX Evolution
  *
  * @category 	plugin
- * @version 	0.01
+ * @version 	2.0.1
  * @author      Agel_Nash <modx@agel-nash.ru>
  * @internal	@events         OnPageNotFound
  * @internal	@properties     &saveParams=Сохранять GET параметры при редиректе;list;true,false;true &findWithParams=Искать правила с учетом GET параметров;list;true,false;false

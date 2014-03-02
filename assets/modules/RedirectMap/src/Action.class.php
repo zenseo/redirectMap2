@@ -38,11 +38,14 @@ class Action{
     }
 
     public static function saveValue(){
-        return self::_workValue(function($data, $modSEO){
+        return self::_workValue(function($data, $modAR){
             $out = array();
             if(isset($_POST['value']) && is_scalar($_POST['value'])){
-                if($modSEO->set($data['key'], $_POST['value'])->save()){
-                    $out['value'] = $modSEO->get($data['key']);
+                $modAR->set($data['key'], $_POST['value'])->save();
+
+                $insert = Action::checkPageID($modAR->get('uri'), $modAR->get('page'));
+                if($modAR->fromArray($insert)->save()){
+                    $out['value'] = $modAR->get($data['key']);
                 }
             }
             return $out;
@@ -56,11 +59,33 @@ class Action{
             );
         });
     }
+
+    public static function checkPageID($uri, $page, $active = 1){
+        $modx = self::$modx;
+        $insert = array(
+            'page' => $page,
+            'uri' => $uri,
+            'active' => $active
+        );
+        $selfID = $modx->runSnippet('getPageID', array('uri' => $insert['uri']));
+        $insert['active'] = ( !empty($insert['page']) );
+        if( ! empty($selfID) ){
+            $insert['active'] = 0;
+            $insert['page'] = $selfID;
+        }
+        return $insert;
+    }
+
     public static function addUri(){
         $out = array();
         if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['page']) && !empty($_POST['uri'])){
             $modRedirect = new modRedirectMap(self::$modx);
-            $flag = $modRedirect->create($_POST)->save();
+            $insert = array(
+                'page' => $_POST['page'],
+                'uri' => $_POST['uri']
+            );
+            $insert = Action::checkPageID($insert['uri'], $insert['page']);
+            $flag = $modRedirect->create($insert)->save();
             if($flag){
                 $out['log'] = 'Добавлено новое правило';
             }else{
@@ -78,6 +103,7 @@ class Action{
         }
         return $out;
     }
+
     public static function checkUniq(){
         return self::_workValue(function($data, $modSEO){
             $out = array();
@@ -85,7 +111,7 @@ class Action{
                 if($modSEO->isUniq($_POST['value'])){
                     $out['value'] = 'true';
                 }else{
-                    $out['value'] = 'Вы пытаетесь сохранить ключ который уже есть в базе. Удалите эту запись если она лишная.';
+                    $out['value'] = 'Вы пытаетесь сохранить правило которое уже есть в базе. Удалите эту запись если она лишная.';
                 }
             }else{
                 $out['value'] = 'Не установлено значение';
@@ -120,6 +146,7 @@ class Action{
     public static function lists(){
         self::$TPL = 'ajax/lists';
     }
+
     public static function fullDelete(){
         $data = array();
         $dataID = (int)Template::getParam('docId', $_GET);
@@ -137,30 +164,96 @@ class Action{
         return $data;
     }
 
-    protected static function _prepareResponse($json, $function, array $params = array()){
-        require_once(MODX_BASE_PATH."assets/snippets/DocLister/lib/jsonHelper.class.php");
-        $data = array();
-        if($json){
-            $json = \jsonHelper::jsonDecode($json,array('assoc'=>true));
-            if(empty($json)){
-                $data['log'][] = 'Ошибка в полученном ответе от APIShops';
-            }else{
-                if(isset($json['items'])){
-                    if((is_object($function) && ($function instanceof \Closure)) || is_callable($function)){
-                        $data = call_user_func($function, $json, $params);
-                    }else{
-                        $data['flag'] = true;
-                        $data['log'][] = 'Запрос к APIShops успешно обработан';
+    public static function csv(){
+        header('Content-Type: application/json');
+        $json = array();
+        self::$TPL = 'ajax/getValue';
+        $file = Template::getParam('filedata', $_FILES);
+        $name = strtolower(end(explode(".", Template::getParam('name', $file))));
+        $stat = array();
+
+        switch($name){
+            case 'txt':{
+                $stat = Helper::readFileLine(Template::getParam('tmp_name', $file), function(array $params){
+                    $line = trim(Template::getParam('line', $params));
+                    if(!empty($line)){
+                        /**
+                         * @var \DocumentParser $modx
+                         */
+                        $modx = Template::getParam('modx', $params);
+                        /**
+                         * Создавать новую запись
+                         */
+                        $modRM = new modRedirectMap($modx);
+                        $isNew = $modRM->create(array(
+                            'uri' => $line,
+                            'active' => 0,
+                            'page' => 0
+                        ))->save();
+                        $uri = $modRM->get('uri');
+
+                        $q = $modx->db->select('id', $modx->getFullTableName("redirect_map"), "`uri` = '".$modx->db->escape($uri)."'");
+                        return (false !== $isNew && !empty($uri) && $modx->db->getRecordCount($q)==1);
                     }
-                }
-                if(isset($json['error'])){
-                    $data['log'][] = "<strong>APIShops вернул ошибку</strong>: ".$json['error'];
-                    $data['flag'] = false;
-                }
+                }, array('modx' => self::$modx), 10000);
+                break;
             }
-        }else{
-            $data['log'][] = 'Ошибка соединения с API-сервером APIShops';
+            case 'csv':{
+                ini_set('auto_detect_line_endings',TRUE);
+                set_time_limit(0);
+                ini_set('max_execution_time',0);
+
+                $stat = Helper::readFileLine(Template::getParam('tmp_name', $file), function(array $params){
+                    $flag = false;
+                    $line = trim(Template::getParam('line', $params));
+                    if(!empty($line)){
+                        $data = str_getcsv($line, ';');
+                        if(in_array(count($data), array(1,2), true)){
+                            /**
+                             * @var \DocumentParser $modx
+                             */
+                            $modx = Template::getParam('modx', $params);
+                            /**
+                             * Создавать новую запись
+                             */
+                            $modRM = new modRedirectMap($modx);
+                            $uri = Template::getParam(0, $data);
+                            $uri = iconv('windows-1251', 'UTF-8//IGNORE', $uri);
+                            $insert = array(
+                                'uri' => $uri,
+                                'page' => Template::getParam(1, $data, '0'),
+                            );
+                            $insert = Action::checkPageID($insert['uri'], $insert['page']);
+
+                            $isNew = $modRM->create($insert)->save();
+                            $uri = $modRM->get('uri');
+                            $q = $modx->db->select('id', $modx->getFullTableName("redirect_map"), "`uri` = '".$modx->db->escape($uri)."'");
+                            if($modx->db->getRecordCount($q)==1){ //Если уже запись есть в базе
+                                if(false === $isNew){ //Если не удалось добавить новую запись
+                                    unset($insert['uri']);
+                                    $flag = $modRM->edit($modx->db->getValue($q))->fromArray($insert)->save();
+                                }else{
+                                    $flag = true;
+                                }
+                            }
+
+                        }
+                    }
+                    return $flag;
+                }, array('modx' => self::$modx), 10000);
+                break;
+            }
+            default:{
+            $log[] = 'Некорректный тип файла';
+            }
         }
-        return $data;
+        if(empty($log)){
+            $log = array(
+                'Число строк обработанных из загружаемого файла: '.Template::getParam('line', $stat, 0),
+                'Число обновленных или добавленных ключей: '.Template::getParam('add', $stat, 0)
+            );
+        }
+        $json['message'] = self::$_tplObj->showBody('log', array('log'=>$log));
+        return array('value'=>json_encode($json));
     }
 }

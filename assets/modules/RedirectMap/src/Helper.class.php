@@ -77,4 +77,25 @@ class Helper{
         }
         return $error;
     }
+
+    public static function readFileLine($path,$callback, array $callbackParams = array(), $lines = 0, $size=4096){
+        $handle = fopen($path, "r");
+        $i = $total = 0;
+        while (!feof($handle)) {
+            $i++;
+            $buffer = fgets($handle, $size);
+            if(is_callable($callback)){
+                $callbackParams['line'] = $buffer;
+                $callbackParams['numLine'] = $i;
+                if(call_user_func($callback, $callbackParams)){
+                    $total++;
+                }
+            }
+            if($lines > 0 && $i >= $lines){
+                break;
+            }
+        }
+        fclose($handle);
+        return array('line'=>$i, 'add'=>$total);
+    }
 }
