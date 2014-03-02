@@ -133,20 +133,27 @@ class Template{
                 'itemClass' => 'gridItem',
                 'display' => self::getParam('display', $this->_modx->event->params),
                 'id' => 'dl',
+                'pageInfoTpl' => '@CODE: '.$this->showBody('table/pageInfo'),
+                'pageInfoEmptyTpl' => '@CODE: '.$this->showBody('table/pageInfoEmpty'),
                 'debug' => 0,
                 'test' => 'module',
                 'noneTPL' => '@CODE: Нет данных',
                 'noneWrapOuter' => 0,
                 'paginate' => 'pages',
                 'prepare' => function(array $data = array(), \DocumentParser $modx, \onetableDocLister $_DocLister){
-                        include_once(MODX_BASE_PATH."assets/lib/MODxAPI/modResource.php");
-                        $DOC = new \modResource($modx);
                         if(!empty($data['page'])){
+                            include_once(MODX_BASE_PATH."assets/lib/MODxAPI/modResource.php");
+                            $DOC = new \modResource($modx);
                             $DOC->edit($data['page']);
-                        }
 
-                        $data['doc_pagetitle'] = $DOC->getID() ? $DOC->get('pagetitle') : '';
-                        $data['doc_parent'] = $DOC->getID() ? $DOC->get('parent') : '0';
+                            $data['doc_pagetitle'] = $DOC->getID() ? $DOC->get('pagetitle') : '';
+                            $data['doc_parent'] = $DOC->getID() ? $DOC->get('parent') : '0';
+
+                            $tpl = 'pageInfoTpl';
+                        }else{
+                            $tpl = 'pageInfoEmptyTpl';
+                        }
+                        $data['pageInfo'] = $_DocLister->parseChunk($_DocLister->getCFGDef($tpl), $data);
 
                         $data['active'] = $data['active'] ? 'stop' : 'add';
                         $data['class'] = (isset($data['dl.iteration']) && $data['dl.iteration'] % 2) ? $_DocLister->getCFGDef('itemClass') : $_DocLister->getCFGDef('altItemClass');
