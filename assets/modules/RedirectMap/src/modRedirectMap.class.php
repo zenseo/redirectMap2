@@ -39,7 +39,7 @@ class modRedirectMap extends \autoTable{
         if(is_scalar($value) && is_scalar($key) && !empty($key)){
             switch($key){
                 case 'uri':{
-                    $value = trim($value);
+                    $value = '/'.ltrim(trim($value), '/');
                     break;
                 }
                 case 'page':{
